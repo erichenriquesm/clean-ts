@@ -1,10 +1,11 @@
-import { GetCountries } from "../Services/GetCountries.js";
+import { GetCountriesContract } from "../Contracts/GetCountriesContract";
+import { GetCountries } from "../Services/GetCountries";
 
 class GetCountriesController {
-    private service: GetCountries;
+    private readonly service: GetCountriesContract;
 
-    constructor() {
-        this.service = new GetCountries();
+    constructor(service: GetCountriesContract) {
+        this.service = service;
     }
 
     public async exec() {
@@ -14,6 +15,6 @@ class GetCountriesController {
 }
 
 (async () => {
-    const controller = new GetCountriesController();
+    const controller = new GetCountriesController(new GetCountries());
     await controller.exec();
 })();

@@ -1,6 +1,7 @@
+import { GetCountriesContract } from "../Contracts/GetCountriesContract.js";
 import { CountriesAPI } from "./CountriesAPI.js";
 
-export class GetCountries extends CountriesAPI {
+export class GetCountries extends CountriesAPI implements GetCountriesContract {
     public async exec():  Promise<object> {
         return await this.getCountries();
     }
