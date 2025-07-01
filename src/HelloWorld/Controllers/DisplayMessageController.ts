@@ -1,10 +1,11 @@
+import { HelloWorldContract } from "../Contracts/HelloWorldContract.js";
 import { HelloWorld } from "../Services/HelloWorld.js";
 
 class DisplayMessageController {
-    private service: HelloWorld;
+    private readonly service: HelloWorldContract;
 
-    constructor() {
-        this.service = new HelloWorld();
+    constructor(service: HelloWorldContract) {
+        this.service = service;
     }
 
     public exec() {
@@ -12,5 +13,5 @@ class DisplayMessageController {
     }
 }
 
-const controllerInstance = new DisplayMessageController();
+const controllerInstance = new DisplayMessageController(new HelloWorld);
 controllerInstance.exec();
