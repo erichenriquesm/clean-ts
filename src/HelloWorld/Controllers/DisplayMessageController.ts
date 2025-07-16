@@ -1,7 +1,7 @@
-import { HelloWorldContract } from "../Contracts/HelloWorldContract.js";
-import { HelloWorld } from "../Services/HelloWorld.js";
+import { HelloWorldContract } from "../Contracts/HelloWorldContract.ts";
+import { HelloWorld } from "../Services/HelloWorld.ts";
 
-class DisplayMessageController {
+export class DisplayMessageController {
     private readonly service: HelloWorldContract;
 
     constructor(service: HelloWorldContract) {
