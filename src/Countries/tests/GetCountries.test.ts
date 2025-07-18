@@ -33,9 +33,11 @@ const thenCountryHasRegionAttribute = (country: Object): void => {
 
 describe("Valida retorno para se obter os países", () => {
   let countries: Object[];
+  let firstCountry: Object;
 
   beforeAll(async () => {
     countries = await givenCountries();
+    firstCountry = whenFirstCountry(countries);
   });
 
   it("Deve retornar um array com países", async () => {
@@ -43,12 +45,10 @@ describe("Valida retorno para se obter os países", () => {
   });
 
   it("País deve possuir o atributo name", async () => {
-    const firstCountry = whenFirstCountry(countries);
     thenCountryHasNameAttribute(firstCountry);
   });
 
   it("País deve possuir o atributo region", async () => {
-    const firstCountry = whenFirstCountry(countries);
     thenCountryHasRegionAttribute(firstCountry);
   });
 });
