@@ -1,23 +1,55 @@
 import { GetCountriesController } from "../Controllers/GetCountriesController";
 import { GetCountries } from "../Services/GetCountries.ts";
 
+const givenCountries = async (): Promise<Object[]> => {
+  const controller = new GetCountriesController(new GetCountries());
+
+  return await controller.exec();
+};
+
+const whenFirstCountry = (countries: Object[]): Object => {
+  return countries[0];
+};
+
+const thenIsArrayAndNotEmpty = (countries: Object[]): void => {
+  expect(Array.isArray(countries)).toBe(true);
+  expect(countries.length).toBeGreaterThan(0);
+};
+
+const thenCountryHasNameAttribute = (country: Object): void => {
+  expect(country).toEqual(
+    expect.objectContaining({
+      name: expect.any(Object),
+    })
+  );
+};
+
+const thenCountryHasRegionAttribute = (country: Object): void => {
+  expect(country).toEqual(
+    expect.objectContaining({
+      region: expect.any(String),
+    })
+  );
+};
+
 describe("Valida retorno para se obter os países", () => {
+  let countries: Object[];
+
+  beforeAll(async () => {
+    countries = await givenCountries();
+  });
+
   it("Deve retornar um array com países", async () => {
-    // Arrange - Preparo
-    const controller = new GetCountriesController(new GetCountries());
+    thenIsArrayAndNotEmpty(countries);
+  });
 
-    // Act - Execução
-    const result: object[] = await controller.exec();
-    const firtCountry: object = result[0];
+  it("País deve possuir o atributo name", async () => {
+    const firstCountry = whenFirstCountry(countries);
+    thenCountryHasNameAttribute(firstCountry);
+  });
 
-    // Assert - Verificação
-    expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBeGreaterThan(0);
-    expect(firtCountry).toEqual(
-      expect.objectContaining({
-        name: expect.any(Object),
-        region: expect.any(String),
-      })
-    );
+  it("País deve possuir o atributo region", async () => {
+    const firstCountry = whenFirstCountry(countries);
+    thenCountryHasRegionAttribute(firstCountry);
   });
 });
